@@ -24,8 +24,8 @@ public interface ArticleMapper {
     List<Article> limitArticle(@Param(value = "limit") Integer limit);
     Article getAfterArticle(@Param(value = "id") Integer id);
     Article getPreArticle(@Param(value = "id") Integer id);
-    List<Article> getRandomArticle(@Param(value = "limit")Integer limit);
-    List<Article> getArticleByCommentCount(@Param(value = "limit")Integer limit);
+    List<Article> listRandomArticle(@Param(value = "limit")Integer limit);
+    List<Article> listArticleByCommentCount(@Param(value = "limit")Integer limit);
     void updateCommentCount(@Param(value = "articleId")Integer articleId);
     Article getLastUpdateArticle();
     Integer countArticleByUser(@Param(value = "id") Integer id);

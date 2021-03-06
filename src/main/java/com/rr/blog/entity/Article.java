@@ -9,30 +9,34 @@ import java.util.List;
 @Data
 public class Article implements Serializable {
 
-    private static final long serialVersionUID = -1038897351672911219L;
-    private Integer commentId;
+    private Integer articleId;
 
-    private Integer commentPid;
+    private Integer articleUserId;
 
-    private String commentPname;
+    private String articleTitle;
 
-    private Integer commentArticleId;
+    private Integer articleViewCount;
 
-    private String commentAuthorName;
+    private Integer articleCommentCount;
 
-    private String commentAuthorEmail;
+    private Integer articleLikeCount;
 
-    private String commentAuthorUrl;
+    private Date articleCreateTime;
 
-    private String commentAuthorAvatar;
+    private Date articleUpdateTime;
 
-    private String commentContent;
+    private Integer articleIsComment;
 
-    private String commentAgent;
+    private Integer articleStatus;
 
-    private String commentIp;
+    private Integer articleOrder;
 
-    private Date commentCreateTime;
+    private String articleContent;
+
+    private String articleSummary;
+
+    private User user;
+
     private List<Tag> tagList;
 
     private List<Category> categoryList;
