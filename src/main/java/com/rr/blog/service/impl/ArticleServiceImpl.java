@@ -120,12 +120,12 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public void deleteArticleBatch(List<Integer> ids) {
-
-    }
+        articleMapper.deleteBatch(ids);    }
 
     @Override
     public void deleteArticle(Integer id) {
-
+        articleMapper.deleteById(id);
+        articleCategoryRefMapper.deleteByArticleId(id);
     }
 
     @Override
