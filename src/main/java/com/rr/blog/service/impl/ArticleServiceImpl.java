@@ -1,11 +1,10 @@
 package com.rr.blog.service.impl;
 
+import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.rr.blog.entity.*;
-import com.rr.blog.mapper.ArticleCategoryRefMapper;
-import com.rr.blog.mapper.ArticleMapper;
-import com.rr.blog.mapper.ArticleTagRefMapper;
-import com.rr.blog.mapper.TagMapper;
+import com.rr.blog.enums.ArticleCommentStatus;
+import com.rr.blog.mapper.*;
 import com.rr.blog.service.ArticleService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -129,72 +129,110 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public PageInfo pageArticle(Integer pageIndex, Integer pageSize, HashMap<String, Object> criteria) {
-        return null;
+    public PageInfo<Article>  pageArticle(Integer pageIndex, Integer pageSize, HashMap<String, Object> criteria) {
+        PageHelper.startPage(pageIndex,pageIndex);
+        List<Article> list =articleMapper.findAll(criteria);
+        for (Article item:list
+             ) {
+            List<Category> categoryList = articleCategoryRefMapper.listCategoryByArticleId(item.getArticleId());
+            if(categoryList==null || categoryList.size()==0){
+                categoryList =new ArrayList<>();
+                categoryList.add(Category.Default());
+            }
+            item.setCategoryList(categoryList);
+        }
+        return new PageInfo<>(list);
     }
 
     @Override
     public Article getArticleByStatusAndId(Integer status, Integer id) {
-        return null;
+        return articleMapper.getArticleByStatusAndId(status,id);
     }
 
     @Override
     public List<Article> listArticleByViewCount(Integer limit) {
-        return null;
+        return articleMapper.listArticleByCommentCount(limit);
     }
 
     @Override
     public Article getAfterArticle(Integer id) {
-        return null;
+        return articleMapper.getAfterArticle(id);
     }
 
     @Override
     public Article getPreArticle(Integer id) {
-        return null;
+        return articleMapper.getPreArticle(id);
     }
 
     @Override
     public List<Article> listRandomArticle(Integer limit) {
-        return null;
+        return articleMapper.listRandomArticle(limit);
     }
 
     @Override
     public List<Article> listArticleByCommentCount(Integer limit) {
-        return null;
+        return articleMapper.listArticleByCommentCount(limit);
     }
 
     @Override
-    public Integer insertArticle(Article article) {
-        return null;
+    @Transactional( rollbackFor = Exception.class)
+    public void insertArticle(Article article) {
+        article.setArticleCreateTime(new Date());
+        article.setArticleUpdateTime(new Date());
+        article.setArticleIsComment(ArticleCommentStatus.ALLOW.getValue());
+        article.setArticleViewCount(0);
+        article.setArticleCommentCount(0);
+        article.setArticleLikeCount(0);
+        article.setArticleOrder(1);
+        articleMapper.insert(article);
+        if (article.getCategoryList() != null && article.getCategoryList().size() > 0) {
+            for (Category category : article.getCategoryList()
+            ) {
+                articleCategoryRefMapper.insert(new ArticleCategoryRef(article.getArticleId(), category.getCategoryId()));
+            }
+        }
+        if(article.getTagList()!=null && article.getTagList().size()>0) {
+            for (Tag tag:article.getTagList()
+                 ) {
+                articleTagRefMapper.insert(new ArticleTagRef(article.getArticleId(),tag.getTagId()));
+            }
+        }
     }
 
     @Override
-    public void updateCommentCount(Article articleId) {
+    public void updateCommentCount(Article article) {
+        articleMapper.updateCommentCount(article.getArticleId());
 
     }
 
     @Override
     public Article getLastUpdateArticle() {
-        return null;
+        return articleMapper.getLastUpdateArticle();
     }
 
     @Override
     public List<Article> listArticleByCategoryId(Integer cateId, Integer limit) {
-        return null;
+        if(cateId==null)
+            return null;
+        return articleMapper.findArticleByCategoryId(cateId,limit);
     }
 
     @Override
     public List<Article> listArticleByCategoryIds(List<Integer> cateIds, Integer limit) {
-        return null;
+        if(cateIds==null ||cateIds.size()==0)
+            return null;
+        return articleMapper.findArticleByCategoryIds(cateIds,limit);
     }
 
     @Override
     public List<Integer> listCategoryIdByArticleId(Integer articleId) {
-        return null;
+        if(articleId==null)
+            return null;
+        return articleCategoryRefMapper.selectCategoryIdByArticleId(articleId);
     }
 
     @Override
     public List<Article> listAllNotWithContent() {
-        return null;
+        return articleMapper.listAllNoteWithContent();
     }
 }

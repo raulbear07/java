@@ -21,14 +21,14 @@ public interface ArticleService {
     void updateArticleDetail(Article article);
     void deleteArticleBatch(List<Integer> ids);
     void deleteArticle(Integer id);
-    PageInfo pageArticle(Integer pageIndex , Integer pageSize, HashMap<String,Object> criteria);
+    PageInfo<Article> pageArticle(Integer pageIndex , Integer pageSize, HashMap<String,Object> criteria);
     Article getArticleByStatusAndId(Integer status, Integer id);
     List<Article> listArticleByViewCount(Integer limit);
     Article getAfterArticle(Integer id);
     Article getPreArticle(Integer id);
     List<Article> listRandomArticle(Integer limit);
     List<Article> listArticleByCommentCount(Integer limit);
-    Integer insertArticle(Article article);
+    void insertArticle(Article article);
     void updateCommentCount(Article articleId);
     Article getLastUpdateArticle();
     List<Article> listArticleByCategoryId(Integer cateId, Integer limit);

@@ -13,6 +13,15 @@ public class Category implements Serializable {
 
     private String categoryName;
 
+    public Category(Integer categoryId, String categoryName) {
+        this.categoryId = categoryId;
+        this.categoryName = categoryName;
+    }
+
+    public Category(Integer categoryId) {
+        this.categoryId = categoryId;
+    }
+
     private String categoryDescription;
 
     private Integer categoryOrder;
@@ -31,6 +40,9 @@ public class Category implements Serializable {
         this.categoryOrder = categoryOrder;
         this.categoryIcon = categoryIcon;
         this.articleCount = articleCount;
+    }
+    public  static  Category Default(){
+        return  new Category(100000000,"未分类");
     }
 
 }
