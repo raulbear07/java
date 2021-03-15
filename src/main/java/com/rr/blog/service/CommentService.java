@@ -14,5 +14,7 @@ public interface CommentService {
     PageInfo<Comment> listCommentPage(Integer pageIndex,Integer pageSize);
     List<Comment> listComment();
     Integer commentCount();
+    List<Comment> listRecentComment(Integer limit);
+    List<Comment> listChildComment(Integer id);
 
 }
