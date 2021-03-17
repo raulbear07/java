@@ -29,7 +29,7 @@ public interface ArticleService {
     List<Article> listRandomArticle(Integer limit);
     List<Article> listArticleByCommentCount(Integer limit);
     void insertArticle(Article article);
-    void updateCommentCount(Article articleId);
+    void updateCommentCount(Integer articleId);
     Article getLastUpdateArticle();
     List<Article> listArticleByCategoryId(Integer cateId, Integer limit);
     List<Article> listArticleByCategoryIds(List<Integer> cateIds, Integer limit);

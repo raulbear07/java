@@ -12,6 +12,8 @@ public class JsonResult<T> {
         this.message = message;
         this.data = data;
     }
+    public JsonResult() {
+    }
     public JsonResult fail() {
         return new JsonResult(false, 1, "操作失败", null);
     }

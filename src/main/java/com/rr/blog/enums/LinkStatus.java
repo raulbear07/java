@@ -1,7 +1,8 @@
 package com.rr.blog.enums;
 
-public enum OptionStatus {
-    ;
+public enum LinkStatus {
+    NORMAL(1, "显示"),
+    HIDDEN(0, "隐藏");
 
     public Integer getValue() {
         return value;
@@ -19,7 +20,7 @@ public enum OptionStatus {
         this.message = message;
     }
 
-    OptionStatus(Integer value, String message) {
+    LinkStatus(Integer value, String message) {
         this.value = value;
         this.message = message;
     }

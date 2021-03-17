@@ -200,8 +200,8 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public void updateCommentCount(Article article) {
-        articleMapper.updateCommentCount(article.getArticleId());
+    public void updateCommentCount(Integer articleId) {
+        articleMapper.updateCommentCount(articleId);
 
     }
 

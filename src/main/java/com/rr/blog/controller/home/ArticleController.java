@@ -70,7 +70,21 @@ public class ArticleController {
     public String increaseLikeCount(@PathVariable("id") Integer id){
         Article article =articleService.getArticleByStatusAndId(ArticleStatus.PUBLISH.getValue(),id);
         if(article==null)
-            return JSON.toJSONString(new JsonResult<>())
+            return JSON.toJSONString(0);
+        Integer articleCount =article.getArticleLikeCount()+1;
+        article.setArticleLikeCount(articleCount);
+        articleService.updateArticleDetail(article);
+        return JSON.toJSONString(articleCount);
+    }
+
+    @RequestMapping("article/view/{id}")
+    @ResponseBody
+    public String increaseViewCount(@PathVariable("id")Integer id){
+        Article article =articleService.getArticleByStatusAndId(ArticleStatus.PUBLISH.getValue(),id);
+        Integer articleCount = article.getArticleViewCount() + 1;
+        article.setArticleViewCount(articleCount);
+        articleService.updateArticleDetail(article);
+        return JSON.toJSONString(articleCount);
     }
 
 }
