@@ -4,7 +4,7 @@ import com.rr.blog.entity.User;
 
 import java.util.List;
 
-public interface UserServive {
+public interface UserService {
     List<User>  listUser();
     User getUserById(Integer id);
     /**

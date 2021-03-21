@@ -2,7 +2,7 @@ package com.rr.blog.service.impl;
 
 import com.rr.blog.entity.User;
 import com.rr.blog.mapper.UserMapper;
-import com.rr.blog.service.UserServive;
+import com.rr.blog.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,7 +11,7 @@ import java.util.Date;
 import java.util.List;
 @Service
 @Slf4j
-public class UserServiceImpl implements UserServive {
+public class UserServiceImpl implements UserService {
     @Autowired
     private UserMapper userMapper;
     @Override

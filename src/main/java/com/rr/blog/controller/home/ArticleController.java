@@ -1,7 +1,6 @@
 package com.rr.blog.controller.home;
 
 import com.alibaba.fastjson.JSON;
-import com.rr.blog.dto.JsonResult;
 import com.rr.blog.entity.*;
 import com.rr.blog.enums.ArticleStatus;
 import com.rr.blog.service.*;
@@ -21,7 +20,7 @@ public class ArticleController {
     @Autowired
     private ArticleService articleService;
     @Autowired
-    private UserServive userServive;
+    private UserService userService;
     @Autowired
     private CommentService commentService;
     @Autowired
@@ -35,7 +34,7 @@ public class ArticleController {
         Article article =articleService.getArticleByStatusAndId(ArticleStatus.PUBLISH.getValue(),articleId);
         if(article==null)
             return "error/404";
-        User user =userServive.getUserById(article.getArticleUserId());
+        User user = userService.getUserById(article.getArticleUserId());
         article.setUser(user);
         model.addAttribute("article",article);
         List<Comment> commentList =commentService.listCommentByArticleId(articleId);
