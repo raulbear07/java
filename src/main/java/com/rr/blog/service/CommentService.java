@@ -9,8 +9,8 @@ public interface CommentService {
     Comment getCommentById(Integer id);
     List<Comment> listCommentByArticleId(Integer articleId);
     void insertComment(Comment comment);
-    void updateCommnet(Comment comment);
-    void deleteCommnet(Integer commentId);
+    void updateComment(Comment comment);
+    void deleteComment(Integer commentId);
     PageInfo<Comment> listCommentPage(Integer pageIndex,Integer pageSize);
     List<Comment> listComment();
     Integer commentCount();

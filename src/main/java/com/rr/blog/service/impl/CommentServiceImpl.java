@@ -48,7 +48,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public void updateCommnet(Comment comment) {
+    public void updateComment(Comment comment) {
         try {
             commentMapper.update(comment);
         } catch (Exception e) {
@@ -60,7 +60,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void deleteCommnet(Integer commentId) {
+    public void deleteComment(Integer commentId) {
         commentMapper.deleteById(commentId);
         articleMapper.updateCommentCount(commentId);
     }

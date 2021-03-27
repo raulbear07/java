@@ -19,6 +19,9 @@ import java.util.List;
 @Service
 @Slf4j
 public class ArticleServiceImpl implements ArticleService {
+    public static void main(String[] args) {
+
+    }
     @Autowired
     private ArticleMapper articleMapper;
     @Autowired

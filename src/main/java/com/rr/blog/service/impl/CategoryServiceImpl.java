@@ -79,6 +79,11 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    public Integer countCategory() {
+        return categoryMapper.countCategory();
+    }
+
+    @Override
     public void deleteCategory(Integer id) {
         try {
             categoryMapper.deleteCategory(id);
